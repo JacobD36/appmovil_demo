@@ -1,0 +1,130 @@
+﻿SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2018-11-01' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2018-11-01' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
+SELECT consulta_dni.tUsuario,
+        count(*)  as 'Q',
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'SEGUIMIENTO',1,0)) as 'Q5' ,
+        sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
+        concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
+         FROM consulta_dni as consulta_dni, usuario
+        where usuario.tLogin = consulta_dni.tUsuario
+         and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+        and   date(ffechaGrabacion)    between '2019-09-09' and '2019-09-09'   and consulta_dni.tUsuario in ('SELECCIONE UNA OPCIÓN')
+        group by consulta_dni.tUsuario;
