@@ -211,10 +211,8 @@ class usuario_model{
                 $stmt->execute();
                 $rows = $stmt->fetchAll();
                 $stmt1 = $this->db->prepare("insert into usuarios (idpersona,tCodigo,codusuario,idperfil,estado,aEstado,tUsuario,tPassword2,tDni,cod_equipo,tCex,fFecha,tCorreo,nReporte) values ('".$rows[0]['id']."','".$codigo."','".$codusuario."','".$nivel."','".$estado_l."','".$estado."','".strtoupper($codusuario)."','','".$dni."','".$equipo."','".$cex."','".$fecha."','".$correo."','".$nReporte."');"); 
-                $this->guarda_log("insert into usuarios (idpersona,tCodigo,codusuario,idperfil,estado,aEstado,tUsuario,tPassword2,tDni,cod_equipo,tCex,fFecha,tCorreo,nReporte) values ('".$rows[0]['id']."','".$codigo."','".$codusuario."','".$nivel."','".$estado_l."','".$estado."','".strtoupper($codusuario)."','','".$dni."','".$equipo."','".$cex."','".$fecha."','".$correo."','".$nReporte."');");
                 $stmt1->execute();
                 $stmt2 = $this->db->prepare("select id from usuarios where codusuario='".$codusuario."' order by id desc limit 1;");
-                $this->guarda_log("select id from usuarios where codusuario='".$codusuario."' order by id desc limit 1;");
                 $stmt2->execute();
                 $rows2 = $stmt2->fetchAll();
                 $stmt3 = $this->db->prepare("insert into personas (idusuario,dni,nombre1,nombre2,apellido1,apellido2) values ('".$rows2[0]['id']."','".$dni."','".$nombre1."','".$nombre2."','".$apellido1."','".$apellido2."');");
@@ -450,6 +448,22 @@ class usuario_model{
             $rows = $stmt->fetchAll();
             unset($stmt);
             return $rows;
+        }catch(PDOException $e){
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    }
+
+    public function set_abordamiento($usuario,$zona){
+        try{
+            $stmt = $this->db_1->prepare("insert into bdmovil.tbl_datos(usuario,dni,estado,fec_reg,tZona) values ('".$usuario."','','NO',now(),'".$zona."');");
+            $stmt->execute();
+            $stmt1 = $this->db_1->prepare("SELECT COUNT(*) AS Q3 from bdmovil.tbl_datos where date(fec_reg) = date(now()) and usuario = '".$usuario."';");
+            $stmt1->execute();
+            $row = $stmt1->fetchAll();
+            unset($stmt);
+            unset($stmt1);
+            return $row[0]['Q3'];
         }catch(PDOException $e){
             print "Error!: " . $e->getMessage() . "<br/>";
             die();

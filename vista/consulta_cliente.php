@@ -39,10 +39,12 @@
                                 <i class="ace-icon fa fa-search"></i>
                                 <span class="badge"><?php echo $q_info[0]['Q1'];?></span>
                             </a>
-                            <a href="#" class="btn btn-lg btn-danger radius-4" style="float:right;margin:5px;">
-                                <i class="ace-icon fa fa-user"></i>
-                                <span class="badge"><?php echo $q_tbl_datos_info[0]['Q3'];?></span>
-                            </a>
+                            <div id="q3_data">
+                                <a href="javascript:void(0)" class="btn btn-lg btn-danger radius-4" style="float:right;margin:5px;">
+                                    <i class="ace-icon fa fa-user"></i>
+                                    <span class="badge"><?php echo $q_tbl_datos_info[0]['Q3'];?></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <form class="form-horizontal" role="form">
@@ -65,10 +67,16 @@
                         </div>
                         <p>&nbsp;</p>
                         <div class="form-group">
-                            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                            <div class="col-md-6 col-sm-6 col-xs-6" style="text-align:center;">
                                 <a href="javascript:void(0)" id="buscar" class="btn btn-primary btn-lg">
                                     <i class="ace-icon fa fa-search bigger-120"></i>
                                     Buscar
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6" style="text-align:center;">
+                                <a href="javascript:void(0)" id="abordar" class="btn btn-danger btn-lg">
+                                    <i class="ace-icon fa fa-user bigger-120"></i>
+                                    Abordar
                                 </a>
                             </div>
                         </div>
@@ -97,6 +105,25 @@
             });
         } else {
             swal("¡Error! Por favor, ingrese lo solicitado.", { icon: "error", });
+        }
+    });
+
+    $("#abordar").on('click',function(){
+        var zona = $("#zona").val();
+
+        if(zona!=""){
+            $.ajax({
+                type: "post",
+                url: "controlador/procesar_datos.php",
+                data: {
+                    zona: zona
+                },
+                success: function(datos) {
+                    $("#q3_data").html(datos);
+                }
+            });
+        } else {
+            swal("¡Error! Por favor, seleccione una zona.", { icon: "error", });
         }
     });
 </script>
