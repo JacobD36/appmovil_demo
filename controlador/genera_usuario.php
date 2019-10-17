@@ -7,10 +7,10 @@
     $usr = new usuario_model();
 
     $codigo = $_POST['codigo'];
-    $nombre1 = utf8_decode($_POST['nombre1']);
-    $nombre2 = utf8_decode($_POST['nombre2']);
-    $apellido1 = utf8_decode($_POST['apellido1']);
-    $apellido2 = utf8_decode($_POST['apellido2']);
+    $nombre1 = strtoupper($_POST['nombre1']);
+    $nombre2 = strtoupper($_POST['nombre2']);
+    $apellido1 = strtoupper($_POST['apellido1']);
+    $apellido2 = strtoupper($_POST['apellido2']);
     $correo = $_POST['correo'];
     $dni = $_POST['dni'];
     $cex = $_POST['cex'];

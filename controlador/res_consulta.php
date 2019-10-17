@@ -198,6 +198,11 @@
                         <form class="form-horizontal" role="form">
                             <input type="hidden" id="txtid" name="txtid" value="<?php echo $id_generado;?>">
                             <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                                    <p class="form-control-static"><span class="label label-success" style="font-size:150% !important;height:30px !important;">NO SE ENCUENTRA EN CAMPAÑA</span></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-3 col-sm-3 col-xs-12 control-label no-padding-right" for="dni"><h5>DNI</h5></label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" id="dni" class="col-xs-12 col-sm-6 input-lg" value="<?php echo $documento;?>" readonly style="background-color:white !important;" />
@@ -390,6 +395,11 @@
                         <p></p>
                         <form class="form-horizontal" role="form">
                             <input type="hidden" id="txtid" name="txtid" value="<?php echo $id_generado;?>">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                                    <p class="form-control-static"><span class="label label-danger" style="font-size:160% !important;height:30px !important;">SE ENCUENTRA EN CAMPAÑA</span></p>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-3 col-sm-3 col-xs-12 control-label no-padding-right" for="dni"><h5>DNI</h5></label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">

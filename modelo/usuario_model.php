@@ -1,6 +1,7 @@
 <?php
 class usuario_model{
     private $db;
+    private $db_1;
 
     public function __construct(){
         $this->db=database::conexion();
@@ -118,7 +119,8 @@ class usuario_model{
 
     public function get_rate_info($codusuario){
         try{
-            $stmt = $this->db_1->prepare("SELECT COUNT(*) AS Q1,IFNULL(SUM(IF(tCampana = '1',1,0)),0) as Q2 FROM bdmovil.consulta_dni  where date(ffechaGrabacion) = date(now()) and tusuario = '".$codusuario."'  and ifnull(tDni,'') not IN ('');");
+            $usr = strtoupper($codusuario);
+            $stmt = $this->db_1->prepare("SELECT COUNT(*) AS Q1,IFNULL(SUM(IF(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),0) as Q2 FROM bdmovil.consulta_dni  where date(ffechaGrabacion) = date(now()) and tusuario = '".$usr."'  and ifnull(tDni,'') not in ('');");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             unset($stmt);
@@ -183,7 +185,7 @@ class usuario_model{
 
     public function existe_user($codusuario){
         try {
-            $stmt = $this->db->prepare("select * from usuarios where codusuario='".$codusuario."';");
+            $stmt = $this->db->prepare("select * from bdmovilv2.usuarios where codusuario='".$codusuario."';");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             unset($stmt);
@@ -200,6 +202,7 @@ class usuario_model{
 
     public function set_new_user($codigo,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$password1,$equipo,$nivel,$estado_l,$estado,$fecha,$nReporte){
         $codusuario = substr($nombre1,0,1);
+        $ape1 = $apellido1;
         $apellido1 = str_replace("Ñ","N",$apellido1);
         $first_c = substr($apellido2,0,1);
         $codusuario.=$apellido1;
@@ -207,16 +210,17 @@ class usuario_model{
         if ($this->existe_user($codusuario)==false) {
             try {
                 $codusuario = strtolower($codusuario);
-                $stmt = $this->db->prepare("select id from personas order by id desc limit 1;");
+                $stmt = $this->db->prepare("select id from bdmovilv2.personas order by id desc limit 1;");
                 $stmt->execute();
                 $rows = $stmt->fetchAll();
-                $stmt1 = $this->db->prepare("insert into usuarios (idpersona,tCodigo,codusuario,idperfil,estado,aEstado,tUsuario,tPassword2,tDni,cod_equipo,tCex,fFecha,tCorreo,nReporte) values ('".$rows[0]['id']."','".$codigo."','".$codusuario."','".$nivel."','".$estado_l."','".$estado."','".strtoupper($codusuario)."','','".$dni."','".$equipo."','".$cex."','".$fecha."','".$correo."','".$nReporte."');"); 
+                $stmt1 = $this->db->prepare("insert into bdmovilv2.usuarios (idpersona,tCodigo,codusuario,idperfil,estado,aEstado,tUsuario,tPassword2,tDni,cod_equipo,tCex,fFecha,tCorreo,nReporte) values ('".$rows[0]['id']."','".$codigo."','".$codusuario."','".$nivel."','".$estado_l."','".$estado."','".strtoupper($codusuario)."','','".$dni."','".$equipo."','".$cex."','".$fecha."','".$correo."','".$nReporte."');"); 
                 $stmt1->execute();
-                $stmt2 = $this->db->prepare("select id from usuarios where codusuario='".$codusuario."' order by id desc limit 1;");
+                $stmt2 = $this->db->prepare("select id from bdmovilv2.usuarios where codusuario='".$codusuario."' order by id desc limit 1;");
                 $stmt2->execute();
                 $rows2 = $stmt2->fetchAll();
-                $stmt3 = $this->db->prepare("insert into personas (idusuario,dni,nombre1,nombre2,apellido1,apellido2) values ('".$rows2[0]['id']."','".$dni."','".$nombre1."','".$nombre2."','".$apellido1."','".$apellido2."');");
+                $stmt3 = $this->db->prepare("insert into bdmovilv2.personas (idusuario,dni,nombre1,nombre2,apellido1,apellido2) values ('".$rows2[0]['id']."','".$dni."','".$nombre1."','".$nombre2."','".$ape1."','".$apellido2."');");
                 $stmt3->execute();
+                $stmt4 = $this->db_1->prepare("");
                 $this->genera_hash($codusuario,$password1);
                 unset($stmt);
                 unset($stmt1);
@@ -238,7 +242,7 @@ class usuario_model{
             $pass_salt_val = explode("|",$pass_salt);
             $hash = $pass_salt_val[0];
             $salt = $pass_salt_val[1];
-            $stmt = $this->db->prepare("insert into login_code (codusuario,hashcode,salt) values ('".$codusuario."','".$hash."','".$salt."');");
+            $stmt = $this->db->prepare("insert into bdmovilv2.login_code (codusuario,hashcode,salt) values ('".$codusuario."','".$hash."','".$salt."');");
             $stmt->execute();
             unset($stmt);
         }catch(PDOException $e){
@@ -264,9 +268,9 @@ class usuario_model{
 
     public function actualiza_persona($id,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$equipo,$nivel,$estado_l,$estado,$nReporte){
         try{
-            $stmt = $this->db->prepare("update usuarios set idperfil='".$nivel."',estado='".$estado_l."',aEstado='".$estado."',tDni='".$dni."',cod_equipo='".$equipo."',tCex='".$cex."',tCorreo='".$correo."',nReporte='".$nReporte."' where id='".$id."';");
+            $stmt = $this->db->prepare("update bdmovilv2.usuarios set idperfil='".$nivel."',estado='".$estado_l."',aEstado='".$estado."',tDni='".$dni."',cod_equipo='".$equipo."',tCex='".$cex."',tCorreo='".$correo."',nReporte='".$nReporte."' where id='".$id."';");
             $stmt->execute();
-            $stmt1 = $this->db->prepare("update personas set dni='".$dni."',nombre1='".$nombre1."',nombre2='".$nombre2."',apellido1='".$apellido1."',apellido2='".$apellido2."' where idusuario='".$id."';");
+            $stmt1 = $this->db->prepare("update bdmovilv2.personas set dni='".$dni."',nombre1='".$nombre1."',nombre2='".$nombre2."',apellido1='".$apellido1."',apellido2='".$apellido2."' where idusuario='".$id."';");
             $stmt1->execute();
             unset($stmt);
             unset($stmt1);
@@ -278,7 +282,7 @@ class usuario_model{
 
     public function get_new_code(){
         try{
-            $stmt = $this->db->prepare("select max(tCodigo) as maximo from usuarios");
+            $stmt = $this->db->prepare("select max(tCodigo) as maximo from bdmovilv2.usuarios");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             $tCodigo = $rows[0]['maximo']+1;
@@ -328,7 +332,7 @@ class usuario_model{
 
     public function registra_actividad($usuario,$ip,$motivo,$fecha,$hora){
         try{
-            $stmt = $this->db->prepare("insert into actividad (idusuario,ip,idmotivo,fecha,hora) values ('".$usuario."','".$ip."','".$motivo."','".$fecha."','".$hora."');");
+            $stmt = $this->db->prepare("insert into bdmovilv2.actividad (idusuario,ip,idmotivo,fecha,hora) values ('".$usuario."','".$ip."','".$motivo."','".$fecha."','".$hora."');");
             $stmt->execute();
             unset($stmt);
         }catch(PDOException $e){
@@ -339,7 +343,7 @@ class usuario_model{
 
     public function registra_ubicacion($id,$latitud,$longitud,$tipo,$fecha,$hora){
         try{
-            $stmt = $this->db->prepare("insert into ubicacion (idusuario,latitud,longitud,tipo,fecha,hora) values ('".$id."','".$latitud."','".$longitud."','".$tipo."','".$fecha."','".$hora."');");
+            $stmt = $this->db->prepare("insert into bdmovilv2.ubicacion (idusuario,latitud,longitud,tipo,fecha,hora) values ('".$id."','".$latitud."','".$longitud."','".$tipo."','".$fecha."','".$hora."');");
             $stmt->execute();
             unset($stmt);
             unset($stmt1);
@@ -351,7 +355,7 @@ class usuario_model{
 
     public function cambia_estado_login($id,$estado){
         try{
-            $stmt = $this->db->prepare("update usuarios set login_state='".$estado."' where id='".$id."';");
+            $stmt = $this->db->prepare("update bdmovilv2.usuarios set login_state='".$estado."' where id='".$id."';");
             $stmt->execute();
             unset($stmt);
         }catch(PDOException $e){
@@ -363,7 +367,7 @@ class usuario_model{
     public function esta_logueado($id){
         $resultado = 0;
         try{
-            $stmt = $this->db->prepare("select login_state from usuarios where id='".$id."' order by id desc limit 1;");
+            $stmt = $this->db->prepare("select bdmovilv2.login_state from usuarios where id='".$id."' order by id desc limit 1;");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             if($rows[0]['login_state']==1){
@@ -407,16 +411,16 @@ class usuario_model{
             $sql1 = "";
             if($id!=""){$sql1=" and idusuario='".$id."' ";}
             if($f1=="" && $f2==""){
-                $stmt = $this->prepare("select * from ubicacion where fecha is not null".$sql1."order by id asc;");
+                $stmt = $this->prepare("select * from bdmovilv2.ubicacion where fecha is not null".$sql1."order by id asc;");
             }
             if($f1!="" && $f2==""){
-                $stmt = $this->db->prepare("select * from ubicacion where fecha>='".$f1."'".$sql1."order by id asc;");
+                $stmt = $this->db->prepare("select * from bdmovilv2.ubicacion where fecha>='".$f1."'".$sql1."order by id asc;");
             }
             if($f1=="" && $f2!=""){
-                $stmt = $this->db->prepare("select * from ubicacion where fecha is not null".$sql1."order by id asc;");
+                $stmt = $this->db->prepare("select * from bdmovilv2.ubicacion where fecha is not null".$sql1."order by id asc;");
             }
             if($f1!="" && $f2!=""){
-                $stmt = $this->db->prepare("select * from ubicacion where fecha between '".$f1."' and '".$f2."'".$sql1."order by id asc;");
+                $stmt = $this->db->prepare("select * from bdmovilv2.ubicacion where fecha between '".$f1."' and '".$f2."'".$sql1."order by id asc;");
             }
             $stmt->execute();
             $rows = $stmt->fetchAll();

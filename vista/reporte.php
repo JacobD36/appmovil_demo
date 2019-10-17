@@ -139,6 +139,10 @@
             "ajax": "controlador/process_6.php?tipo="+tipo2+"&fecha1="+f1+"&fecha2="+f2+"&usuario="+usuario+"&equipo="+res,
             "deferRender": true,
             "paging": true,
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'csv', 'excel', 'pdf'
+            ],
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

@@ -34,7 +34,7 @@
         (SELECT score FROM bdmovil.hipotecario_wap_OK where doc_identidad = tDni)) as SCORE,
         if(tZona not in ('TODO',''),(SELECT descripcion from tbl_zona where id_zona = tZona),tZona) as ZONA
         FROM bdmovil.consulta_dni
-        where date(ffechaGrabacion) $sqlFecha $sqlUsuario $sqlEquipo and ifnull(tDni,'') not in ('') and ifnull(tUsuario,'') not in ('') and tUsuario in (SELECT  tLogin from bdmovilv2.usuarios where  nReporte=1);");
+        where date(ffechaGrabacion) $sqlFecha $sqlUsuario $sqlEquipo and ifnull(tDni,'') not in ('') and ifnull(tUsuario,'') not in ('') and tUsuario in (SELECT  codusuario from bdmovilv2.usuarios where  nReporte=1);");
         $query->execute();
         $rows = $query->fetchAll();
         $i=0;

@@ -31,7 +31,8 @@
                     <p></p>
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="javascript:void(0)" class="btn btn-lg btn-primary radius-4" onclick="carga_contenido('./vista/lista2.php');" style="float:right;margin:5px;">
+                            <!--<a href="javascript:void(0)" class="btn btn-lg btn-primary radius-4" onclick="carga_contenido('./vista/lista2.php');" style="float:right;margin:5px;">-->
+                            <a href="javascript:void(0)" class="btn btn-lg btn-primary radius-4" style="float:right;margin:5px;">
                                 <i class="ace-icon fa fa-check"></i>
                                 <span class="badge"><?php echo $q_info[0]['Q2'];?></span>
                             </a>
