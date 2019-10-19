@@ -1,1 +1,1 @@
-﻿SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = 'FGUTIERREZ' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);
+﻿
