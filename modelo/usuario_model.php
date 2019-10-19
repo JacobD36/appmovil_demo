@@ -383,17 +383,26 @@ class usuario_model{
     public function get_all_regs($user,$f1,$f2){
         try{
             $stmt = "";
+            $user = strtoupper($user);
             if ($f1=="" && $f2=="") {
-                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni_banco where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                //$stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                //$this->guarda_log("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
             }
             if($f1!="" && $f2==""){
-                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni_banco where tUsuario = '".$user."' and date(fFechaGrabacion)>='".$f1."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                //$stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and date(fFechaGrabacion)>='".$f1."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and date(fFechaGrabacion)>='".$f1."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                //$this->guarda_log("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and date(fFechaGrabacion)>='".$f1."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
             }
             if($f1=="" && $f2!=""){
-                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni_banco where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                //$stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
+                //$this->guarda_log("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') group by DATE(ffechaGrabacion);");
             }
             if($f1!="" && $f2!=""){
-                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni_banco where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') and date(fFechaGrabacion) between '".$f1."' and '".$f2."' group by DATE(ffechaGrabacion);");
+                //$stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA,SUM(if(tCampana='1',1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') and date(fFechaGrabacion) between '".$f1."' and '".$f2."' group by DATE(ffechaGrabacion);");
+                $stmt = $this->db_1->prepare("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') and date(fFechaGrabacion) between '".$f1."' and '".$f2."' group by DATE(ffechaGrabacion);");
+                //$this->guarda_log("SELECT DATE_FORMAT(fFechaGrabacion,'%d/%m/%Y') AS FECHA,count(*)  as CONSULTA, SUM(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)) AS 'EFECTIVOS' FROM bdmovil.consulta_dni where tUsuario = '".$user."' and ifnull(tDni,'') not in ('') and date(fFechaGrabacion) between '".$f1."' and '".$f2."' group by DATE(ffechaGrabacion);");
             }
             $stmt->execute();
             $rows = $stmt->fetchAll();
@@ -447,7 +456,8 @@ class usuario_model{
 
     public function get_abord_values(){
         try{
-            $stmt = $this->db_1->prepare("SELECT tLogin from bdmovil.usuario where lEstado = 1 and nReporte=1 and cod_equipo = 'BAY' order by tLogin;");
+            //$stmt = $this->db_1->prepare("SELECT tLogin from bdmovil.usuario where lEstado = 1 and nReporte=1 and cod_equipo = 'BAY' order by tLogin;");
+            $stmt = $this->db->prepare("SELECT codusuario from bdmovilv2.usuarios where estado = 1 and nReporte=1 and cod_equipo = 'BAY' order by codusuario;");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             unset($stmt);

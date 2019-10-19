@@ -199,7 +199,7 @@
                             <input type="hidden" id="txtid" name="txtid" value="<?php echo $id_generado;?>">
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-                                    <p class="form-control-static"><span class="label label-success" style="font-size:150% !important;height:30px !important;">NO SE ENCUENTRA EN CAMPAÑA</span></p>
+                                    <p class="form-control-static"><span class="label label-danger" style="font-size:150% !important;height:30px !important;">NO SE ENCUENTRA EN CAMPAÑA</span></p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -397,7 +397,7 @@
                             <input type="hidden" id="txtid" name="txtid" value="<?php echo $id_generado;?>">
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-                                    <p class="form-control-static"><span class="label label-danger" style="font-size:160% !important;height:30px !important;">SE ENCUENTRA EN CAMPAÑA</span></p>
+                                    <p class="form-control-static"><span class="label label-success" style="font-size:160% !important;height:30px !important;">SE ENCUENTRA EN CAMPAÑA</span></p>
                                 </div>
                             </div>
                             <div class="form-group">

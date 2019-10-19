@@ -37,9 +37,9 @@
     sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'NO DESEA',1,0)) as 'Q6',
     concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) * 100)/sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),1,0)),2),'0.00'),'%') as 'Q7',
     concat(ifnull(round((sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) * 100)/count(*),2),'0.00'),'%') as 'Q3'
-     FROM consulta_dni as consulta_dni, usuario
-    where usuario.tLogin = consulta_dni.tUsuario
-     and nReporte=1   and ifnull(consulta_dni.tDni,'') not in ('')
+     FROM bdmovil.consulta_dni as consulta_dni, bdmovilv2.usuarios
+    where usuarios.codusuario = consulta_dni.tUsuario
+     and nReporte=1 and ifnull(consulta_dni.tDni,'') not in ('')
     and   date(ffechaGrabacion) $sqlFecha $sqlUsuario
     group by consulta_dni.tUsuario;");
         $sql->execute();

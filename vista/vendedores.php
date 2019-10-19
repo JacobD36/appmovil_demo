@@ -52,7 +52,7 @@
                                 <select class="col-md-3 col-sm-3 col-xs-12 form-control input-lg" id="vendedor">
                                     <option value="">SELECCIONE UNA OPCIÓN</option>
                                     <?php foreach($res_values as $lista){?>
-                                        <option value="<?php echo $lista['tLogin'];?>"><?php echo $lista['tLogin'];?></option>
+                                        <option value="<?php echo strtoupper($lista['codusuario']);?>"><?php echo strtoupper($lista['codusuario']);?></option>
                                     <?php }?>
                                 </select>
                             </div>
