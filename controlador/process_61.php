@@ -29,7 +29,7 @@
     }
 
     if ($tipo_reporte=='2') {
-        $sql = database::conexion_1()->prepare("SELECT consulta_dni.tUsuario,
+        $sql = database::conexion_1()->prepare("SELECT consulta_dni.tUsuario,bdmovilv2.usuarios.medio_tiempo,
     count(*)  as 'Q',
     sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR')  ,1,0)) as 'Q2' ,
     sum(if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR') and tResultado = 'VENTA' ,1,0)) as 'Q4' ,
@@ -63,10 +63,10 @@
                     $img2="<img src='./vista/img/rojo3.png'/>";
                 }
 
-                $arreglo["data"][] = array($data['tUsuario'],$data['Q'],$data['Q2'],$data['Q4'],$data['Q5'],$data['Q6'],$data['Q7'],$data['Q3']);
+                $arreglo["data"][] = array($data['tUsuario'],$data['medio_tiempo'],$data['Q'],$data['Q2'],$data['Q4'],$data['Q5'],$data['Q6'],$data['Q7'],$data['Q3']);
             }
         } else {
-            $arreglo["data"][] = array('SIN REGISTROS','','','','','','','');
+            $arreglo["data"][] = array('SIN REGISTROS','','','','','','','','');
         }
         echo json_encode($arreglo);
     }

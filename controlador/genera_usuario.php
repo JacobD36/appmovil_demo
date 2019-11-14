@@ -21,10 +21,11 @@
     $estado_l = $_POST['estado_l'];
     $estado = $_POST['estado'];
     $nReporte = $_POST['nReporte'];
+    $turno = $_POST['turno'];
 
     if($nombre1!="" && $apellido1!="" && $apellido2!="" && $dni!="" && $cex!="" && $password1!="" && $password2!="" && $equipo!="" && $nivel!=""){
         if($password1==$password2){
-            $usuario = $usr->set_new_user($codigo,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$password1,$equipo,$nivel,$estado_l,$estado,$fecha_actual,$nReporte);
+            $usuario = $usr->set_new_user($codigo,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$password1,$equipo,$nivel,$estado_l,$estado,$fecha_actual,$nReporte,$turno);
             echo $usuario;
         }
     }

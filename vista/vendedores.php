@@ -106,6 +106,7 @@
     function mostrar_registros(tipo2,f1,f2,vendedor){
         var columns = [
             { "title":"USUARIO","width": "11%" },
+            { "title":"TURNO","width": "11%" },
             { "title":"C(Q)","width": "11%" },
             { "title":"E(Q)","width": "11%" },
             { "title":"VENTA","width": "11%" },
@@ -129,6 +130,10 @@
             "ajax": "controlador/process_61.php?tipo="+tipo2+"&fecha1="+f1+"&fecha2="+f2+"&usuario="+vendedor,
             "deferRender": true,
             "paging": true,
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'csv', 'excel', 'pdf'
+            ],
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -164,7 +169,15 @@
                 {
                     "targets": [1],
                     "render": function(data, type, full) {
-                        return data;
+                        if(data=='0'){
+                            return "<center><span class='label label-success'>FULL TIME</span></center>";
+                        }else{
+                            if(data=='1'){
+                                return "<center><span class='label label-warning'>PART TIME</span></center>";
+                            }else{
+                                return "";
+                            }
+                        }
                     }
                 },
                 {
@@ -199,6 +212,12 @@
                 },
                 {
                     "targets": [7],
+                    "render": function(data, type, full) {
+                        return data;
+                    }
+                },
+                {
+                    "targets": [8],
                     "render": function(data, type, full) {
                         return data;
                     }

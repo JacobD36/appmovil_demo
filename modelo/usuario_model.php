@@ -54,7 +54,7 @@ class usuario_model{
 
     public function get_all_personas(){
         try{
-            $stmt = $this->db->prepare("SELECT u.id,u.tCodigo,CONCAT(p.nombre1,' ',p.nombre2) AS nombre,p.apellido1,p.apellido2,u.codusuario,(SELECT descripcion FROM perfiles WHERE id=u.idperfil) AS nivel,u.cod_equipo,u.estado FROM usuarios u,personas p WHERE u.id=p.idusuario;");
+            $stmt = $this->db->prepare("SELECT u.id,u.tCodigo,CONCAT(p.nombre1,' ',p.nombre2) AS nombre,p.apellido1,p.apellido2,u.codusuario,(SELECT descripcion FROM perfiles WHERE id=u.idperfil) AS nivel,u.cod_equipo,u.medio_tiempo,u.estado FROM usuarios u,personas p WHERE u.id=p.idusuario;");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             unset($stmt);
@@ -67,7 +67,7 @@ class usuario_model{
 
     public function get_edit_persona($id){
         try{
-            $stmt = $this->db->prepare("SELECT u.id,u.tCodigo,p.nombre1,p.nombre2,p.apellido1,p.apellido2,u.codusuario,idperfil,u.tCex,u.tCorreo,u.cod_equipo,u.estado,u.aEstado,u.fFecha,tDni,u.nReporte FROM usuarios u,personas p WHERE u.id=p.idusuario AND u.id='".$id."';");
+            $stmt = $this->db->prepare("SELECT u.id,u.tCodigo,p.nombre1,p.nombre2,p.apellido1,p.apellido2,u.codusuario,idperfil,u.tCex,u.tCorreo,u.cod_equipo,u.estado,u.aEstado,u.fFecha,tDni,u.nReporte,u.medio_tiempo FROM usuarios u,personas p WHERE u.id=p.idusuario AND u.id='".$id."';");
             $stmt->execute();
             $rows = $stmt->fetchAll();
             unset($stmt);
@@ -200,7 +200,7 @@ class usuario_model{
         }
     }
 
-    public function set_new_user($codigo,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$password1,$equipo,$nivel,$estado_l,$estado,$fecha,$nReporte){
+    public function set_new_user($codigo,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$password1,$equipo,$nivel,$estado_l,$estado,$fecha,$nReporte,$turno){
         $codusuario = substr($nombre1,0,1);
         $ape1 = $apellido1;
         $apellido1 = str_replace("Ñ","N",$apellido1);
@@ -213,7 +213,7 @@ class usuario_model{
                 $stmt = $this->db->prepare("select id from bdmovilv2.personas order by id desc limit 1;");
                 $stmt->execute();
                 $rows = $stmt->fetchAll();
-                $stmt1 = $this->db->prepare("insert into bdmovilv2.usuarios (idpersona,tCodigo,codusuario,idperfil,estado,aEstado,tUsuario,tPassword2,tDni,cod_equipo,tCex,fFecha,tCorreo,nReporte) values ('".$rows[0]['id']."','".$codigo."','".$codusuario."','".$nivel."','".$estado_l."','".$estado."','".strtoupper($codusuario)."','','".$dni."','".$equipo."','".$cex."','".$fecha."','".$correo."','".$nReporte."');"); 
+                $stmt1 = $this->db->prepare("insert into bdmovilv2.usuarios (idpersona,tCodigo,codusuario,idperfil,estado,aEstado,tUsuario,tPassword2,tDni,cod_equipo,tCex,fFecha,tCorreo,nReporte,medio_tiempo) values ('".$rows[0]['id']."','".$codigo."','".$codusuario."','".$nivel."','".$estado_l."','".$estado."','".strtoupper($codusuario)."','','".$dni."','".$equipo."','".$cex."','".$fecha."','".$correo."','".$nReporte."','".$turno."');"); 
                 $stmt1->execute();
                 $stmt2 = $this->db->prepare("select id from bdmovilv2.usuarios where codusuario='".$codusuario."' order by id desc limit 1;");
                 $stmt2->execute();
@@ -266,9 +266,9 @@ class usuario_model{
         }
     }
 
-    public function actualiza_persona($id,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$equipo,$nivel,$estado_l,$estado,$nReporte){
+    public function actualiza_persona($id,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$equipo,$nivel,$estado_l,$estado,$nReporte,$turno){
         try{
-            $stmt = $this->db->prepare("update bdmovilv2.usuarios set idperfil='".$nivel."',estado='".$estado_l."',aEstado='".$estado."',tDni='".$dni."',cod_equipo='".$equipo."',tCex='".$cex."',tCorreo='".$correo."',nReporte='".$nReporte."' where id='".$id."';");
+            $stmt = $this->db->prepare("update bdmovilv2.usuarios set idperfil='".$nivel."',estado='".$estado_l."',aEstado='".$estado."',tDni='".$dni."',cod_equipo='".$equipo."',tCex='".$cex."',tCorreo='".$correo."',nReporte='".$nReporte."',medio_tiempo='".$turno."' where id='".$id."';");
             $stmt->execute();
             $stmt1 = $this->db->prepare("update bdmovilv2.personas set dni='".$dni."',nombre1='".$nombre1."',nombre2='".$nombre2."',apellido1='".$apellido1."',apellido2='".$apellido2."' where idusuario='".$id."';");
             $stmt1->execute();

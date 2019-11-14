@@ -128,6 +128,13 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group" id="sel_turno" style="display:none;">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="minimal" id="chk_part_time" name="chk_part_time" value="1"> Part Time
+                                </label>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
@@ -170,6 +177,15 @@
       radioClass   : 'iradio_minimal-blue'
     });
 
+    $("#nivel").change(function(){
+        var nivel = $("#nivel").val();
+        if(nivel=='3'){
+            $("#sel_turno").css("display","block");
+        }else{
+            $("#sel_turno").css("display","none");
+        }
+    });
+
     $("#guardar").on('click',function(){
         var codigo = $("#codigo").val();
         var nombre1 = $("#nombre1").val();
@@ -186,6 +202,17 @@
         var estado_l = 0;
         var estado = 0;
         var nReporte = 0;
+        var turno = 0;
+
+        if(nivel=='3'){
+            if(document.getElementById("chk_part_time").checked == true){
+                turno = $("#chk_part_time").val();
+            }else{
+                turno = 0;
+            }
+        }else{
+            turno = 0;
+        }
 
         if(document.getElementById("chk_ver_reporte").checked == true){
             nReporte = $("#chk_ver_reporte").val();
@@ -218,7 +245,8 @@
                             nivel: nivel,
                             estado_l: estado_l,
                             estado: estado,
-                            nReporte: nReporte
+                            nReporte: nReporte,
+                            turno: turno
                         },
                         success: function(datos) {
                             if(datos!="existe"){

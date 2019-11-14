@@ -16,8 +16,9 @@
     $estado_l = $_POST['estado_l'];
     $estado = $_POST['estado'];
     $nReporte = $_POST['nReporte'];
+    $turno = $_POST['turno'];
 
     if($nombre1!="" && $apellido1!="" && $apellido2!="" && $dni!="" && $cex!="" && $equipo!="" && $nivel!=""){
-        $usr->actualiza_persona($id,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$equipo,$nivel,$estado_l,$estado,$nReporte);
+        $usr->actualiza_persona($id,$nombre1,$nombre2,$apellido1,$apellido2,$correo,$dni,$cex,$equipo,$nivel,$estado_l,$estado,$nReporte,$turno);
     }
 ?>

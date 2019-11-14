@@ -59,6 +59,10 @@
        mostrar_usuarios();
     });
 
+    function get_performance_por_usuario(usuario){
+        return usuario;
+    }
+
     function muestra_mensaje(){
         alert("Ha presionado el botón editar");
     }
@@ -72,7 +76,8 @@
             { "title":"USUARIO","width": "10%" },
             { "title":"LOGIN","width": "5%" },
             { "title":"NIVEL","width": "5%" },
-            { "title":"EQUIPO","width": "10%" },
+            { "title":"EQUIPO","width": "5%" },
+            { "title":"TURNO","width": "5%" },
             { "title":"ESTADO","width": "5%" },
             { "title":"OPCIONES","width": "5%" },
         ];
@@ -116,9 +121,13 @@
                 }
             },
             "bInfo": true,
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'csv', 'excel', 'pdf'
+            ],
             "columnDefs": [
                 { responsivePriority: 1, targets: 4 },
-                { responsivePriority: 2, targets: 8 },
+                { responsivePriority: 2, targets: 9 },
                 {
                     "targets": [0],
                     "render": function(data, type, full) {
@@ -172,7 +181,27 @@
                     }
                 },
                 {
+                    "targets": [7],
+                    "render": function(data, type, full) {
+                        return data;
+                    }
+                },
+                {
                     "targets": [8],
+                    "render": function(data, type, full) {
+                        if(data=='0'){
+                            return "<center><span class='label label-success'>FULL TIME</span></center>";
+                        }else{
+                            if(data=='1'){
+                                return "<center><span class='label label-warning'>PART TIME</span></center>";
+                            }else{
+                                return "";
+                            }
+                        }
+                    }
+                },
+                {
+                    "targets": [9],
                     "render": function(data, type, full) {
                         if(data==1){
                             return "<center><span class='label label-success'>ACTIVO</span></center>";
@@ -182,7 +211,7 @@
                     }
                 },
                 {
-                    "targets": [9],
+                    "targets": [10],
                     "render": function(data, type, full) {
                         return '<center>'+data+'</center>';
                     }
