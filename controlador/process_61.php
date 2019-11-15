@@ -6,6 +6,8 @@
     $fecha1 = $_GET["fecha1"];
     $fecha2 = $_GET["fecha2"];
     $usuario = $_GET["usuario"];
+    $turno = $_GET["turno"];
+    $sql_turno = "";
 
     if ($fecha2!=""){
         $sqlFecha ="   between '".$fecha1."' and '".$fecha2."' ";
@@ -28,6 +30,10 @@
         $sqlUsuario=" and consulta_dni.tUsuario in ('".$usuario."')";
     }
 
+    if($turno!=""){
+        $sql_turno = " AND bdmovilv2.usuarios.medio_tiempo='".$turno."' ";
+    }
+
     if ($tipo_reporte=='2') {
         $sql = database::conexion_1()->prepare("SELECT consulta_dni.tUsuario,bdmovilv2.usuarios.medio_tiempo,
     count(*)  as 'Q',
@@ -40,13 +46,25 @@
      FROM bdmovil.consulta_dni as consulta_dni, bdmovilv2.usuarios
     where usuarios.codusuario = consulta_dni.tUsuario
      and nReporte=1 and ifnull(consulta_dni.tDni,'') not in ('')
-    and   date(ffechaGrabacion) $sqlFecha $sqlUsuario
+    and   date(ffechaGrabacion) $sqlFecha $sqlUsuario $sql_turno
     group by consulta_dni.tUsuario;");
         $sql->execute();
         $rows = $sql->fetchAll();
 
+        $total_q = 0;
+        $total_q2 = 0;
+        $total_q4 = 0;
+        $total_q5 = 0;
+        $total_q6 = 0;
+
         if ($rows!=null) {
             foreach ($rows as $data) {
+                $total_q+=$data['Q'];
+                $total_q2+=$data['Q2'];
+                $total_q4+=$data['Q4'];
+                $total_q5+=$data['Q5'];
+                $total_q6+=$data['Q6'];
+
                 if ($data[3]>= 25) {
                     $img="<img src='./vista/img/verde3.png'/>";
                 } elseif ($data[3] >= 20) {
@@ -68,6 +86,7 @@
         } else {
             $arreglo["data"][] = array('SIN REGISTROS','','','','','','','','');
         }
+        
         echo json_encode($arreglo);
     }
 

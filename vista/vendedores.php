@@ -46,6 +46,18 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group" id="sel_turno">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label no-padding-right" for="turno"><h5>Turno</h5></label>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <select class="col-md-3 col-sm-3 col-xs-12 form-control input-lg" id="turno">
+                                    <option value="">SELECCIONE UNA OPCIÓN</option>
+                                    <option value="0">FULL TIME</option>
+                                    <option value="1">PART TIME</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group" id="sel_res">
                             <label class="col-md-3 col-sm-3 col-xs-12 control-label no-padding-right" for="vendedor"><h5>Vendedor</h5></label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
@@ -80,7 +92,16 @@
                                 </table>
                             </div>
                         </div>
-                    </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="header smaller lighter green">Totales</h3>
+                            <p></p>
+                            <div class="form-group" id="tabla_totales">
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,19 +112,40 @@
         var tipo2 = '2';
         var f1 = $("#fech_ini").val();
         var f2 = $("#fech_fin").val();
+        var turno = $("#turno").val();
         var vendedor = $("#vendedor").val();
-        mostrar_registros(tipo2,f1,f2,vendedor);
+        mostrar_registros(tipo2,f1,f2,vendedor,turno);
+        mostrar_totales(tipo2,f1,f2,vendedor,turno);
     });
 
     $("#mostrar").on('click',function(){
         var tipo2 = '2';
         var f1 = $("#fech_ini").val();
         var f2 = $("#fech_fin").val();
+        var turno = $("#turno").val();
         var vendedor = $("#vendedor").val();
-        mostrar_registros(tipo2,f1,f2,vendedor);
+        mostrar_registros(tipo2,f1,f2,vendedor,turno);
+        mostrar_totales(tipo2,f1,f2,vendedor,turno);
     });
 
-    function mostrar_registros(tipo2,f1,f2,vendedor){
+    function mostrar_totales(tipo2,f1,f2,vendedor,turno){
+        $.ajax({
+            type: "post",
+            url: "controlador/get_totales.php",
+            data: {
+                tipo2:tipo2,
+                f1:f1,
+                f2:f2,
+                vendedor:vendedor,
+                turno:turno
+            },
+            success: function(datos) {
+                $("#tabla_totales").html(datos);
+            }
+        });
+    }
+
+    function mostrar_registros(tipo2,f1,f2,vendedor,turno){
         var columns = [
             { "title":"USUARIO","width": "11%" },
             { "title":"TURNO","width": "11%" },
@@ -127,7 +169,7 @@
             "autoWidth": false,
             "destroy": true,
             "columns": columns,
-            "ajax": "controlador/process_61.php?tipo="+tipo2+"&fecha1="+f1+"&fecha2="+f2+"&usuario="+vendedor,
+            "ajax": "controlador/process_61.php?tipo="+tipo2+"&fecha1="+f1+"&fecha2="+f2+"&usuario="+vendedor+"&turno="+turno,
             "deferRender": true,
             "paging": true,
             "dom": 'Bfrtip',
