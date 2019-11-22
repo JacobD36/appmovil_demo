@@ -35,12 +35,6 @@
         if(tZona not in ('TODO',''),(SELECT descripcion from bdmovil.tbl_zona where id_zona = tZona),tZona) as ZONA
         FROM bdmovil.consulta_dni
         where date(ffechaGrabacion) $sqlFecha $sqlUsuario $sqlEquipo and ifnull(tDni,'') not in ('') and ifnull(tUsuario,'') not in ('') and tUsuario in (SELECT  codusuario from bdmovilv2.usuarios where  nReporte=1);");
-        $qwerty->guarda_log("select tDni,tCelular,if(ifnull(tResultado,'') not in ('','TRAMITE REGULAR'),'TC APROBADA','') AS TIPO, date(ffechaGrabacion) as Fecha,tResultado, tMotivo,tUsuario,
-        ifnull((SELECT Score FROM bdmovil.hipotecario_wap where doc_identidad = tDni),
-        (SELECT score FROM bdmovil.hipotecario_wap_OK where doc_identidad = tDni)) as SCORE,
-        if(tZona not in ('TODO',''),(SELECT descripcion from bdmovil.tbl_zona where id_zona = tZona),tZona) as ZONA
-        FROM bdmovil.consulta_dni
-        where date(ffechaGrabacion) $sqlFecha $sqlUsuario $sqlEquipo and ifnull(tDni,'') not in ('') and ifnull(tUsuario,'') not in ('') and tUsuario in (SELECT  codusuario from bdmovilv2.usuarios where  nReporte=1);");
         $query->execute();
         $rows = $query->fetchAll();
         $i=0;
