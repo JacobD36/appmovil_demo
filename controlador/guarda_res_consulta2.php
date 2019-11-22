@@ -27,10 +27,12 @@
 
     if($id=='0'){
         $sqlinserta = $conn->prepare("update bdmovil.consulta_dni set fFechaGrabacion = now(),tCelular='".$celular."',tResultado='".$resultado."',tMotivo='".$motivo."',tUsuario='".$usuario."' where  tDni ='".$documento."' and date(ffechaGrabacion) = date(now()) and tResultado not in ('VENTA');");
-        $sqlinserta->execute();
+        //$data->guarda_log("update bdmovil.consulta_dni set fFechaGrabacion = now(),tCelular='".$celular."',tResultado='".$resultado."',tMotivo='".$motivo."',tUsuario='".$usuario."' where  tDni ='".$documento."' and date(ffechaGrabacion) = date(now()) and tResultado not in ('VENTA');");
+        $sqlinserta->execute("");
     }
     else{
         $sqlinserta = $conn->prepare("update bdmovil.consulta_dni set fFechaGrabacion = now(),tCelular='".$celular."',tResultado='".$resultado."',tMotivo='".$motivo."' where id ='".$id."';");
+        //$data->guarda_log("update bdmovil.consulta_dni set fFechaGrabacion = now(),tCelular='".$celular."',tResultado='".$resultado."',tMotivo='".$motivo."' where id ='".$id."';");
         $sqlinserta->execute();
     }
 ?>
